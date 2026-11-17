@@ -1,0 +1,372 @@
+<x-user.layout title="Virtual Card">
+
+    @push('styles')
+        <style>
+        .virtual-card-workspace * {
+            box-sizing: border-box;
+        }
+
+        .v-card-flip {
+            width: 100%;
+            max-width: 380px;
+            height: 220px;
+            cursor: pointer;
+            perspective: 1000px;
+            -webkit-perspective: 1000px;
+        }
+
+        .v-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transform-style: preserve-3d;
+            -webkit-transform-style: preserve-3d;
+        }
+
+        .v-card-flip.flipped .v-card-inner {
+            transform: rotateY(180deg);
+            -webkit-transform: rotateY(180deg);
+        }
+
+        .v-card-front,
+        .v-card-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden !important;
+            backface-visibility: hidden !important;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .v-card-front {
+            background: linear-gradient(135deg, rgba(22, 42, 69, 0.85) 0%, rgba(2, 12, 27, 0.9) 100%),
+                url("{{ asset('home-assets/assets/img/forex-logo.png') }}");
+            background-size: contain;
+            background-position: center;
+            z-index: 2;
+        }
+
+        .v-card-back {
+            background: linear-gradient(135deg, #09131e 0%, #15202b 100%);
+            transform: rotateY(180deg);
+            -webkit-transform: rotateY(180deg);
+            z-index: 1;
+        }
+
+        .card-bg-pattern {
+            position: absolute;
+            inset: 0;
+            opacity: 0.08;
+            pointer-events: none;
+            background-image: radial-gradient(circle at 20% 30%, #ffffff 1px, transparent 1px),
+                radial-gradient(circle at 75% 60%, #ffffff 1px, transparent 1px);
+            background-size: 16px 16px;
+        }
+
+        .v-card-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-tagline {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        .card-sub-tag {
+            font-size: 9px;
+            text-transform: uppercase;
+        }
+
+        .brand-logo-glow {
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .card-chip {
+            width: 38px;
+            height: 28px;
+            background: linear-gradient(135deg, #ecd175 0%, #c49926 100%);
+            border-radius: 4px;
+            margin-bottom: 8px;
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.3);
+        }
+
+        .v-card-number {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            font-family: var(--rg-mono, 'Courier New', monospace);
+        }
+
+        .meta-label {
+            display: block;
+            color: rgba(255, 255, 255, 0.45);
+            font-size: 8px;
+            text-transform: uppercase;
+        }
+
+        .meta-value {
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .card-vendor-icon {
+            width: 32px;
+            height: 20px;
+            position: relative;
+        }
+
+        .card-vendor-icon::before,
+        .card-vendor-icon::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            opacity: 0.8;
+        }
+
+        .card-vendor-icon::before {
+            background-color: #eb001b;
+            left: 0;
+        }
+
+        .card-vendor-icon::after {
+            background-color: #ff5f00;
+            right: 12px;
+        }
+
+        .card-magnetic-strip {
+            width: 100%;
+            height: 34px;
+            background-color: #0b0c10;
+        }
+
+        .signature-panel {
+            background: rgba(255, 255, 255, 0.9);
+            color: #111111;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 11px;
+            font-style: italic;
+            user-select: none;
+        }
+
+        .cvv-badge {
+            background-color: #ffc107;
+            color: #111;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 3px;
+            font-size: 11px;
+        }
+
+        .card-back-disclaimer {
+            font-size: 8px;
+            line-height: 1.2;
+        }
+
+        .flip-hint-text {
+            color: var(--rg-text-3);
+            font-size: 11px;
+        }
+
+        .custom-tab-btn {
+            flex: 1;
+            padding: 12px 16px;
+            background: none;
+            border: none;
+            outline: none;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--rg-text-3);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .custom-tab-btn:hover {
+            color: var(--rg-text);
+            background-color: var(--rg-surface-2);
+        }
+
+        .custom-tab-btn.active {
+            color: var(--rg-primary);
+            background: transparent;
+            border-bottom: 2px solid var(--rg-primary);
+        }
+
+        .tab-panel-view {
+            display: none;
+        }
+
+        .tab-panel-view.active {
+            display: block;
+        }
+
+        .panel-main-title {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .custom-status-badge {
+            background-color: var(--rg-success-soft);
+            color: var(--rg-success);
+            font-weight: 600;
+            padding: 4px 10px;
+            font-size: 11px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--rg-success);
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .pure-details-table td {
+            font-size: 12.5px;
+            border-bottom-color: var(--rg-border) !important;
+        }
+
+        .lbl-col {
+            width: 28%;
+        }
+
+        .mono-text {
+            font-family: var(--rg-mono, monospace);
+            font-weight: 700;
+        }
+
+        .custom-info-alert {
+            background-color: var(--rg-primary-soft);
+        }
+
+        .style-line-height {
+            line-height: 1.3;
+        }
+
+        @media (max-width: 767.98px) {
+            .v-card-flip {
+                height: 200px;
+            }
+
+            .v-card-number {
+                font-size: 14px;
+            }
+
+            .lbl-col {
+                width: 35%;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .custom-tab-btn {
+                font-size: 12px;
+                padding: 10px;
+            }
+        }
+    </style>
+    @endpush
+
+    <x-user.page-head
+        eyebrow="<i class='fe fe-credit-card'></i> Banking"
+        title="Virtual cards"
+        subtitle="Request and manage a virtual card linked to your account.">
+        <x-slot:actions>
+            <span class="rx-chip rx-chip--neutral"><i class="fe fe-lock"></i> Secured by {{ config('app.name') }}</span>
+        </x-slot:actions>
+    </x-user.page-head>
+
+    <livewire:user.virtual-card-manager />
+
+    @push('scripts')
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const card = document.getElementById("virtualCard");
+                const revealCvvBtn = document.getElementById("revealCvvBtn");
+                const cardCvv = document.getElementById("cardCvv");
+                const cvvRaw = document.getElementById("cvvRaw");
+
+                if (card) {
+                    card.addEventListener("click", function() {
+                        this.classList.toggle("flipped");
+                    });
+                }
+
+                if (revealCvvBtn && cardCvv && cvvRaw) {
+                    revealCvvBtn.addEventListener("click", function(e) {
+                        e.stopPropagation();
+                        const icon = this.querySelector("i");
+                        if (cardCvv.innerText === "***") {
+                            cardCvv.innerText = cvvRaw.innerText;
+                            if (icon) icon.classList.replace("fe-eye", "fe-eye-off");
+                        } else {
+                            cardCvv.innerText = "***";
+                            if (icon) icon.classList.replace("fe-eye-off", "fe-eye");
+                        }
+                    });
+                }
+            });
+
+            function switchTab(target) {
+                const detailsPanel = document.getElementById('panelDetails');
+                const acquirePanel = document.getElementById('panelAcquire');
+                const detailsBtn = document.getElementById('btnDetails');
+                const acquireBtn = document.getElementById('btnAcquire');
+
+                if (target === 'details' && detailsPanel) {
+                    detailsPanel.classList.add('active');
+                    if (acquirePanel) acquirePanel.classList.remove('active');
+                    if (detailsBtn) detailsBtn.classList.add('active');
+                    if (acquireBtn) acquireBtn.classList.remove('active');
+                } else if (target === 'acquire' && acquirePanel) {
+                    acquirePanel.classList.add('active');
+                    if (detailsPanel) detailsPanel.classList.remove('active');
+                    if (acquireBtn) acquireBtn.classList.add('active');
+                    if (detailsBtn) detailsBtn.classList.remove('active');
+                }
+            }
+
+            function copyText(text, successMsg) {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert(successMsg);
+                }).catch(err => {
+                    console.error('Failed to copy info: ', err);
+                });
+            }
+        </script>
+    @endpush
+
+</x-user.layout>
+
