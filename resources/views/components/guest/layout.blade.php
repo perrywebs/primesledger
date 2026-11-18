@@ -2,7 +2,7 @@
     'title' => null,
     'description' => null,
     'robots' => 'index,follow',
-    'image' => 'assets/guest/img/planning-session.jpg',
+    'image' => 'home-assets/assets/img/forex-logo.png',
     'bodyClass' => '',
 ])
 
