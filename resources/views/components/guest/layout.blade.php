@@ -39,7 +39,7 @@
     <meta name="twitter:description" content="{{ $metaDescription }}">
     <meta name="twitter:image" content="{{ $ogImage }}">
 
-    <link rel="icon" href="{{ asset('assets/guest/brand/favicon.svg') }}" type="image/svg+xml">
+    <link rel="icon" href="{{ asset('home-assets/assets/img/forex-logo.png') }}" type="image/svg+xml">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
