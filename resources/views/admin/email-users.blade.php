@@ -40,7 +40,7 @@
                                         <div class="card-header">
                                             <div>
                                                 <h2 class="card-title" id="recipients-title">1. Choose recipients</h2>
-                                                <p class="rg-panel__sub mb-0">Only verified customer accounts can receive email.</p>
+                                                <p class="rg-panel__sub mb-0">Only eligible customer accounts can receive email.</p>
                                             </div>
                                         </div>
                                         <div class="card-body">
@@ -50,7 +50,7 @@
                                                     <input type="radio" name="recipient_mode" value="all" checked>
                                                     <span>
                                                         <strong>All eligible users</strong>
-                                                        <small>{{ number_format($eligibleCount) }} verified customer accounts</small>
+                                                        <small>{{ number_format($eligibleCount) }} eligible customer accounts</small>
                                                     </span>
                                                 </label>
                                                 <label class="email-recipient-option">
@@ -64,7 +64,7 @@
                                                     <input type="radio" name="recipient_mode" value="individual">
                                                     <span>
                                                         <strong>One individual user</strong>
-                                                        <small>Find one verified customer by name or email</small>
+                                                        <small>Find one eligible customer by name or email</small>
                                                     </span>
                                                 </label>
                                             </fieldset>

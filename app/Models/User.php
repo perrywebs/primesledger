@@ -46,7 +46,6 @@ class User extends Authenticatable
     public function scopeEligibleForEmail(Builder $query): Builder
     {
         return $query->where('role', 0)
-            ->where('verify_status', 1)
             ->whereNotNull('email')
             ->where('email', '!=', '');
     }

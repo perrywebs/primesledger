@@ -37,19 +37,29 @@ class AdminEmailController extends Controller
         $term = trim($validated['q'] ?? '');
 
         if ($term !== '') {
-            $query->where(function ($builder) use ($term) {
-                $builder->where('first_name', 'like', '%' . $term . '%')
-                    ->orWhere('last_name', 'like', '%' . $term . '%')
-                    ->orWhere('email', 'like', '%' . $term . '%');
+            $tokens = preg_split('/\s+/', $term, -1, PREG_SPLIT_NO_EMPTY);
+
+            $query->where(function ($builder) use ($tokens) {
+                foreach ($tokens as $token) {
+                    $like = '%' . $token . '%';
+
+                    $builder->where(function ($match) use ($like) {
+                        $match->where('first_name', 'like', $like)
+                            ->orWhere('last_name', 'like', $like)
+                            ->orWhere('email', 'like', $like);
+                    });
+                }
             });
         }
+
+        $total = $query->count();
 
         return response()->json([
             'users' => $query->orderBy('first_name')
                 ->orderBy('last_name')
                 ->limit(30)
                 ->get(['id', 'first_name', 'last_name', 'email']),
-            'total' => $this->eligibleUsers()->count(),
+            'total' => $total,
         ])->header('Cache-Control', 'no-store, private');
     }
 
