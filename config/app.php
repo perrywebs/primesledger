@@ -187,7 +187,7 @@ return [
 
     // app
     // 'logo' => 'https://forex-royals181.online/home-assets/assets/img/logo-funding-traders.svg',
-    'Admin_email' => 'support@forex-royals181.online',
+    'email' => 'support@primesledger.com',
     'trade_status' => [1 => 'Trade on',  2 => 'Loss', 3 => 'Profit'],
     'stock_stakes_status' => [1 => 'Trade on',  2 => 'Loss', 3 => 'Profit'],
     'transaction_category' => [1 => 'Deposit', 2 => 'Withdrawal', 3 => 'Sub Deposit'],

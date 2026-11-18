@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminEmailController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -81,6 +82,11 @@ Route::prefix('admin')->group(function () {
 
             Route::get('/profile-settings', [AdminController::class, 'profile_settings'])->name('profile_settings');
             Route::post('/profile-settings', [AdminController::class, 'profile_settings'])->name('profile_settings_update');
+
+            Route::get('/email-users', [AdminEmailController::class, 'index'])->name('admin_email_users');
+            Route::get('/email-users/search', [AdminEmailController::class, 'search'])->name('admin_email_users_search');
+            Route::post('/email-users/preview', [AdminEmailController::class, 'preview'])->name('admin_email_users_preview');
+            Route::post('/email-users', [AdminEmailController::class, 'send'])->name('admin_email_users_send');
 
             Route::delete('/{user}', [AdminController::class, 'delete_user'])->name('delete_user');
         });

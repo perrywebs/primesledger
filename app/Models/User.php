@@ -8,6 +8,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 
@@ -41,6 +42,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function scopeEligibleForEmail(Builder $query): Builder
+    {
+        return $query->where('role', 0)
+            ->where('verify_status', 1)
+            ->whereNotNull('email')
+            ->where('email', '!=', '');
+    }
 
 
     // 

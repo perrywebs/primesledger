@@ -11,8 +11,8 @@
                     A digital finance platform for managing supported assets, tracking account activity
                     and exploring investment plans from one clearly organised account.
                 </p>
-                <a class="site-footer__email" href="mailto:{{ $supportEmail }}">
-                    <x-guest.icon name="mail" :size="16" /> {{ $supportEmail }}
+                <a class="site-footer__email" href="mailto:support@primesledger.com">
+                    <x-guest.icon name="mail" :size="16" /> support@primesledger.com
                 </a>
             </div>
 

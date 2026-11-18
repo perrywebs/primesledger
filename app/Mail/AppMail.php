@@ -8,6 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use App\Support\EmailContent;
 
 class AppMail extends Mailable
 {
@@ -22,6 +23,7 @@ class AppMail extends Mailable
     {
         $this->subject = $subject;
         $this->body = $body;
+        $this->body['message'] = EmailContent::sanitize((string) ($body['message'] ?? ''));
     }
 
     /**
@@ -41,6 +43,7 @@ class AppMail extends Mailable
     {
         return new Content(
             view: 'mail.app_mail',
+            text: 'mail.app_mail_text',
         );
     }
 

@@ -39,4 +39,4 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- PRODUCT UI -->
-    <link href="{{ URL('assets/css/revamp.css') }}?v=2" rel="stylesheet">
+    <link href="{{ URL('assets/css/revamp.css') }}?v=3" rel="stylesheet">

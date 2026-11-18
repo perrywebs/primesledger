@@ -39,6 +39,13 @@
                     </a>
                 </li>
 
+                <li class="slide">
+                    <a class="side-menu__item {{ request()->routeIs('admin_email_users*') ? 'active' : '' }}" href="{{ route('admin_email_users') }}">
+                        <i class="side-menu__icon fe fe-mail"></i>
+                        <span class="side-menu__label">Email users</span>
+                    </a>
+                </li>
+
                 <li class="slide {{ $planRoutesActive ? 'is-expanded' : '' }}">
                     <a class="side-menu__item {{ $planRoutesActive ? 'active' : '' }}" data-bs-toggle="slide" href="javascript:void(0);">
                         <i class="side-menu__icon fe fe-database"></i>

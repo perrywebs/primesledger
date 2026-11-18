@@ -572,6 +572,26 @@
             </ol>
 
             <div class="proof-panel mt-40">
+                <div class="people-gallery" aria-label="People working together to manage their financial activities">
+                    <figure class="people-gallery__item people-gallery__item--wide">
+                        <img src="{{ asset('assets/guest/img/people-candidate.jpg') }}"
+                            alt="A diverse group of coworkers collaborating around a shared table"
+                            width="900" height="700" loading="lazy" decoding="async">
+                        <figcaption>Progress comes from working together</figcaption>
+                    </figure>
+                    <figure class="people-gallery__item">
+                        <img src="{{ asset('assets/guest/img/people-finance.webp') }}"
+                            alt="Two professionals discussing information over a laptop"
+                            width="1100" height="733" loading="lazy" decoding="async">
+                        <figcaption>Review details and make informed decisions</figcaption>
+                    </figure>
+                    <figure class="people-gallery__item people-gallery__item--portrait">
+                        <img src="{{ asset('assets/guest/img/people-phone.jpg') }}"
+                            alt="A young woman showing a smartphone to an older woman"
+                            width="800" height="900" loading="lazy" decoding="async">
+                        <figcaption>Review account activity on the go</figcaption>
+                    </figure>
+                </div>
                 <div class="proof-panel__item">
                     <x-guest.icon name="file-text" :size="20" />
                     <strong>Recorded activity</strong>
@@ -596,9 +616,9 @@
         <div class="container split split--reverse">
             <div class="split__media">
                 <div class="media-frame">
-                    <img src="{{ asset('assets/guest/img/planning-session.jpg') }}"
-                        alt="Two people reviewing financial information together at a desk"
-                        width="1200" height="900" loading="lazy" decoding="async">
+                    <img src="{{ asset('assets/guest/img/people-professional.jpg') }}"
+                        alt="A Black woman using a laptop in a bright office"
+                        width="800" height="900" loading="lazy" decoding="async">
                     <span class="media-badge">
                         <x-guest.icon name="shield-check" :size="15" />
                         Read the terms before you commit

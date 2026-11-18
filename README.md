@@ -64,3 +64,11 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Email management
+
+Administrators can compose branded emails from the admin navigation. Recipients are limited to customer accounts with `role = 0` and `verify_status = 1`. Automated application emails use the same branded layout.
+
+The existing logo, site URL, and support address are used by default. Optional social links and a replacement logo can be configured with `MAIL_BRAND_FACEBOOK_URL`, `MAIL_BRAND_INSTAGRAM_URL`, `MAIL_BRAND_LINKEDIN_URL`, `MAIL_BRAND_X_URL`, and `MAIL_BRAND_LOGO_URL`. Set `APP_URL` to the public site URL so email links and the logo resolve correctly.
+
+Bulk email dispatch uses the Laravel database queue. Run `php artisan migrate` to create the queue table, and keep a queue worker running with `php artisan queue:work`. Configure the existing mail transport in the environment before sending.
